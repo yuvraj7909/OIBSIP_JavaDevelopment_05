@@ -14,7 +14,7 @@ public class LibraryService {
         loadSampleData();
     }
 
-    // ================== BOOK CRUD ==================
+    // BOOK CRUD
 
     public Book addBook(String title, String author, String genre, String isbn, int year) {
         Book b = new Book(nextBookId++, title, author, genre, isbn, year);
@@ -57,7 +57,7 @@ public class LibraryService {
 
     public Book getBook(int id) { return books.get(id); }
 
-    // ================== MEMBER CRUD ==================
+    // MEMBER CRUD
 
     public Member registerMember(String name, String email, String phone, String password, Member.Role role) {
         String id = "M" + String.format("%03d", memberCounter++);
@@ -93,7 +93,7 @@ public class LibraryService {
             .findFirst().orElse(null);
     }
 
-    // ================== ISSUE & RETURN ==================
+    // ISSUE & RETURN
 
     public String issueBook(int bookId, String memberId) {
         Book book = books.get(bookId);
@@ -113,7 +113,7 @@ public class LibraryService {
         book.setIssuedToMemberId(memberId);
         book.setIssueDate(LocalDate.now());
         book.setDueDate(LocalDate.now().plusDays(Book.LOAN_DAYS));
-        book.setAdvanceBookedBy(null); // clear advance booking
+        book.setAdvanceBookedBy(null); 
         member.addBook(String.valueOf(bookId));
 
         transactions.add(new Transaction(Transaction.Type.ISSUE, memberId, bookId, 0));
@@ -143,7 +143,7 @@ public class LibraryService {
         return fine > 0 ? "FINE:" + fine : "OK";
     }
 
-    // ================== ADVANCE BOOKING ==================
+    // ADVANCE BOOKING
 
     public String advanceBook(int bookId, String memberId) {
         Book book = books.get(bookId);
@@ -157,7 +157,7 @@ public class LibraryService {
         return "OK";
     }
 
-    // ================== FINE ==================
+    // FINE
 
     public String payFine(String memberId) {
         Member m = members.get(memberId);
@@ -169,7 +169,7 @@ public class LibraryService {
         return "PAID:" + amt;
     }
 
-    // ================== REPORTS ==================
+    // REPORTS
 
     public void reportIssuedBooks() {
         List<Book> issued = books.values().stream().filter(b -> !b.isAvailable()).collect(Collectors.toList());
@@ -222,7 +222,7 @@ public class LibraryService {
         System.out.println("  +---------------------------------+");
     }
 
-    // ================== PRINT HELPERS ==================
+    // PRINT HELPERS
 
     public void printBookHeader() {
         printLine(100);
