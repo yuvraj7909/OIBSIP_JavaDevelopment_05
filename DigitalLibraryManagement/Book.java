@@ -11,10 +11,10 @@ public class Book {
     private String issuedToMemberId;
     private LocalDate issueDate;
     private LocalDate dueDate;
-    private String advanceBookedBy; // member ID who advance-booked
+    private String advanceBookedBy; 
 
     public static final int LOAN_DAYS = 14;
-    public static final double FINE_PER_DAY = 2.0; // Rs. 2 per day
+    public static final double FINE_PER_DAY = 2.0; 
 
     public Book(int id, String title, String author, String genre, String isbn, int year) {
         this.id = id;
